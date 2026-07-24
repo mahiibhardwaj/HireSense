@@ -31,7 +31,7 @@ app.use("/api/ai", aiRewriteRoutes);
 
 // Home Route
 app.get("/", (req, res) => {
-    res.send("" HireSense AI Running");
+    res.send("HireSense AI Running");
 });
 
 

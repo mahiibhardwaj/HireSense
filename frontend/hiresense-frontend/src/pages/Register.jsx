@@ -1,6 +1,6 @@
-import { useState } from "react";
 import axios from "axios";
-import { useNavigate, Link } from "react-router-dom";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 const validateEmail = e => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e);
 const validatePassword = p => /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/.test(p);
@@ -39,7 +39,7 @@ export default function Register() {
     if (Object.keys(e).length) { setErrors(e); return; }
     try {
       setLoading(true);
-      await axios.post("http://localhost:3000/api/auth/register", { name, email, password });
+      await axios.post("https://hiresense-medj.onrender.com/api/auth/register", { name, email, password });
       navigate("/dashboard");
     } catch (err) {
       setServerError(err.response?.data?.message || "Registration failed. Please try again.");

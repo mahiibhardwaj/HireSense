@@ -49,7 +49,7 @@ export default function History() {
   useEffect(() => {
     const email = getUserEmailFromToken();
     if (!email) { setLoading(false); return; }
-    axios.get(`http://localhost:3000/api/history/${email}`)
+    axios.get(`https://hiresense-medj.onrender.com/api/history/${email}`)
       .then(res => setHistory(res.data))
       .catch(() => {})
       .finally(() => setLoading(false));

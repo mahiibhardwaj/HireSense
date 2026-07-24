@@ -18,7 +18,7 @@ export default function Login() {
     if (!email || !password) { setError("Please fill in both fields."); return; }
     try {
       setLoading(true);
-      const res = await axios.post("http://localhost:3000/api/auth/login", { email, password });
+      const res = await axios.post("https://hiresense-medj.onrender.com/api/auth/login", { email, password });
       if (!res.data?.token) { setError("Unexpected server response. Try again."); return; }
       localStorage.setItem("token", res.data.token);
       navigate("/dashboard");

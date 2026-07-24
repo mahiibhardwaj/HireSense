@@ -124,7 +124,7 @@ export default function Dashboard() {
     try {
       const email = getUserEmailFromToken();
       if (!email) return;
-      const res = await axios.get(`http://localhost:3000/api/history/${email}`);
+      const res = await axios.get(`https://hiresense-medj.onrender.com/api/history/${email}`);
       setHistory(res.data);
     } catch {}
   };
@@ -169,14 +169,14 @@ export default function Dashboard() {
       const form = new FormData();
       form.append("resume", resumeFile);
       form.append("jobDescription", jobDescription);
-      const res = await axios.post("http://localhost:3000/api/analyze", form, {
+      const res = await axios.post("https://hiresense-medj.onrender.com/api/analyze", form, {
         headers: { Authorization: `Bearer ${token}`, "Content-Type": "multipart/form-data" },
       });
       const analysis = res.data.data;
       setResult(analysis);
       setActiveTab("result");
       if (email) {
-        try { await axios.post("http://localhost:3000/api/history/save", { email, result: analysis }); } catch {}
+        try { await axios.post("https://hiresense-medj.onrender.com/api/history/save", { email, result: analysis }); } catch {}
       }
       fetchHistory();
     } catch (err) {
@@ -190,7 +190,7 @@ export default function Dashboard() {
     if (aiLoading || !resumeFile || !jobDescription.trim()) return;
     setAiLoading(true); setError(""); setImprovedResume("");
     try {
-      const res = await axios.post("http://localhost:3000/api/ai/rewrite", {
+      const res = await axios.post("https://hiresense-medj.onrender.com/api/ai/rewrite", {
         resumeText: "uploaded resume text here", jobDescription,
       });
       setImprovedResume(res.data.improvedResume);

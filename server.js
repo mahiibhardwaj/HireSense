@@ -5,16 +5,15 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 const connectDB = require("./config/db");
+
 const authRoutes = require("./routes/authRoutes");
 const resumeRoutes = require("./routes/resumeRoutes");
 const analyzeRoutes = require("./routes/analyzeRoutes");
 const historyRoutes = require("./routes/history");
 const aiRewriteRoutes = require("./routes/aiRewriteRoutes");
 
-const app = express(); 
+const app = express();
 
-// Connect Database
-connectDB();
 
 // Middleware
 app.use(express.json());
@@ -27,15 +26,14 @@ app.use("/api/auth", authRoutes);
 app.use("/api/resume", resumeRoutes);
 app.use("/api/analyze", analyzeRoutes);
 app.use("/api/history", historyRoutes);
-
 app.use("/api/ai", aiRewriteRoutes);
-
 
 
 // Home Route
 app.get("/", (req, res) => {
-    res.send("🚀 HireSense AI Running");
+    res.send("" HireSense AI Running");
 });
+
 
 // Test Route
 app.get("/api/test", (req, res) => {
@@ -45,9 +43,23 @@ app.get("/api/test", (req, res) => {
     });
 });
 
-// Start Server
+
+// Start Server after DB connection
 const PORT = process.env.PORT || 3000;
 
-app.listen(PORT, "0.0.0.0",() => {
-    console.log(` Server Running on Port ${PORT}`);
-});
+const startServer = async () => {
+    try {
+        await connectDB();
+
+        app.listen(PORT, "0.0.0.0", () => {
+            console.log(`Server Running on Port ${PORT}`);
+        });
+
+    } catch (error) {
+        console.error("Server Startup Failed:", error.message);
+        process.exit(1);
+    }
+};
+
+
+startServer();
